@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mayur Khobragade — Portfolio</title>
+  <meta name="description" content="Personal portfolio — projects, about me, contact." />
+
+  <!-- Simple responsive utility CSS -->
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #9aa4b2;
+      --accent: #6ee7b7;
+      --glass: rgba(255, 255, 255, 0.04);
+      --max-width: 1100px;
+      --radius: 14px;
+      --ff-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--ff-sans);
+      background: linear-gradient(180deg, #071026 0%, #071829 60%);
+      color: #e6eef6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem
+    }
+
+    /* Header / Nav */
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 40
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--glass);
+      backdrop-filter: blur(6px);
+      padding: 0.6rem 1rem;
+      border-radius: 12px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #5cc7f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #042025;
+      font-weight: 700
+    }
+
+    nav ul {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: .45rem .7rem;
+      border-radius: 8px;
+      font-weight: 600
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent);
+      outline: none
+    }
+
+    /* Mobile */
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    @media (max-width:820px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        right: 1rem;
+        top: 64px;
+        background: var(--card);
+        padding: 0.75rem;
+        border-radius: 10px;
+        flex-direction: column;
+        min-width: 200px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6)
+      }
+
+      nav ul.show {
+        display: flex
+      }
+
+      .menu-toggle {
+        display: inline-flex
+      }
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: center;
+      padding: 3rem 0
+    }
+
+    .hero h1 {
+      font-size: 2.1rem;
+      margin: 0 0 .4rem
+    }
+
+    .hero p {
+      margin: 0 0 1.1rem;
+      color: var(--muted)
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #042025;
+      padding: .6rem .9rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700
+    }
+
+    .portrait {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      padding: 1.25rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .portrait img {
+      width: 100%;
+      border-radius: 12px;
+      max-width: 320px;
+      display: block
+    }
+
+    @media (max-width:820px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait {
+        order: -1
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 0
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+      align-items: start
+    }
+
+    .card {
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 12px
+    }
+
+    /* Portfolio */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem
+    }
+
+    .project {
+      padding: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      border: 1px solid rgba(255, 255, 255, 0.03)
+    }
+
+    .project img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block
+    }
+
+    .project .info {
+      padding: .75rem
+    }
+
+    .tags {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      margin-top: .5rem
+    }
+
+    .tag {
+      font-size: .75rem;
+      padding: .2rem .45rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted)
+    }
+
+    /* Contact */
+    form {
+      display: grid;
+      gap: .75rem
+    }
+
+    input,
+    textarea {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: .6rem .8rem;
+      border-radius: 10px;
+      color: inherit
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid rgba(110, 231, 183, 0.12);
+      border-color: var(--accent)
+    }
+
+    button[type=submit] {
+      background: var(--accent);
+      border: none;
+      padding: .7rem 1rem;
+      border-radius: 10px;
+      font-weight: 700
+    }
+
+    footer {
+      padding: 2rem 0;
+      color: var(--muted);
+      text-align: center
+    }
+
+    /* Utilities */
+    .row {
+      display: flex;
+      gap: 1rem
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="nav" role="navigation" aria-label="Main navigation">
+        <div class="brand">
+          <div class="logo" aria-hidden>YN</div>
+          <div>
+            <div style="font-weight:800">Your Name</div>
+            <div style="font-size:.8rem;color:var(--muted)">Frontend Developer</div>
+          </div>
+        </div>
+
+        <nav>
+          <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">Menu</button>
+          <ul id="main-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Home / Hero -->
+      <section id="home" class="hero" aria-labelledby="home-heading">
+        <div>
+          <h1 id="home-heading">Hi, I'm <span style="color:var(--accent)">Your Name</span></h1>
+          <p class="muted">I build beautiful, accessible web experiences. I design front-end interfaces and craft
+            performant single-page applications.</p>
+          <a class="cta" href="#contact">Work with me</a>
+          <div style="margin-top:1.25rem;color:var(--muted)">
+            <strong>Skills:</strong>
+            <span class="tag" style="display:inline-block;margin-left:.5rem">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">React</span>
+          </div>
+        </div>
+
+        <aside class="portrait" aria-hidden>
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+            alt="Portrait placeholder" />
+        </aside>
+      </section>
+
+      <!-- About -->
+      <section id="about" aria-labelledby="about-heading">
+        <div class="row" style="align-items:start">
+          <div style="flex:1">
+            <h2 id="about-heading">About Me</h2>
+            <p class="muted">I’m a Frontend Developer based in [City]. I enjoy turning designs into accessible,
+              performant user interfaces. I focus on maintainable code, component-driven architecture and measurable UX
+              improvements.</p>
+
+            <div style="margin-top:1rem" class="card">
+              <h3 style="margin:0">Experience</h3>
+              <p class="muted" style="margin:0.5rem 0 0">3+ years building interfaces for SaaS and e-commerce. Worked on
+                teams using agile methodologies and continuous delivery.</p>
+            </div>
+
+            <div style="margin-top:1rem" class="card">
+              <h3 style="margin:0">Tools</h3>
+              <div class="tags">
+                <span class="tag">VS Code</span>
+                <span class="tag">Git</span>
+                <span class="tag">Figma</span>
+                <span class="tag">Jest</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:320px">
+            <div class="card">
+              <h3 style="margin:0">Quick facts</h3>
+              <ul class="muted" style="padding-left:1rem;margin-top:.6rem">
+                <li>Based in: [City, Country]</li>
+                <li>Available for: Freelance / Full-time</li>
+                <li>Languages: English, [Other]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio -->
+      <section id="portfolio" aria-labelledby="portfolio-heading">
+        <h2 id="portfolio-heading">Selected Projects</h2>
+        <p class="muted">A small selection of projects — click to view details.</p>
+
+        <div class="grid" style="margin-top:1rem">
+          <!-- Project 1 -->
+          <article class="project" tabindex="0">
+            <img
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Project screenshot" />
+            <div class="info">
+              <strong>Project One</strong>
+              <div class="muted">A responsive marketing site built with HTML/CSS and a11y-first UX.</div>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">Responsive</span></div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project" tabindex="0">
+            <img
+              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Project screenshot" />
+            <div class="info">
+              <strong>Project Two</strong>
+              <div class="muted">Single-page app with client-side routing and state management.</div>
+              <div class="tags"><span class="tag">React</span><span class="tag">SPA</span></div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project" tabindex="0">
+            <img
+              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Project screenshot" />
+            <div class="info">
+              <strong>Project Three</strong>
+              <div class="muted">E-commerce storefront with cart and checkout flow (prototype).</div>
+              <div class="tags"><span class="tag">Next.js</span><span class="tag">Commerce</span></div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p class="muted">Interested in working together? Send a message — I usually reply within a few business days.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:1rem;margin-top:1rem">
+          <form aria-label="Contact form" onsubmit="submitForm(event)">
+            <label class="sr-only" for="name">Name</label>
+            <input id="name" name="name" placeholder="Your name" required />
+
+            <label class="sr-only" for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="you@example.com" required />
+
+            <label class="sr-only" for="message">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..."
+              required></textarea>
+
+            <button type="submit">Send message</button>
+          </form>
+
+          <aside class="card">
+            <h3 style="margin:0">Get in touch</h3>
+            <p class="muted" style="margin-top:.5rem">Email: <a href="mailto:you@domain.com">you@domain.com</a></p>
+            <p class="muted">LinkedIn: <a href="#">your-linkedin</a></p>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Your Name. Built with care.</div>
+    </footer>
+  </div>
+
+  <script>
+    // small JS: mobile menu + smooth-scroll + form stub
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('main-menu');
+    toggle && toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('show');
+    });
+
+    // smooth scroll for same-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {e.preventDefault(); target.scrollIntoView({behavior: 'smooth', block: 'start'}); menu.classList.remove('show'); toggle && toggle.setAttribute('aria-expanded', 'false');}
+      });
+    });
+
+    function submitForm(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) {alert('Please complete the form.'); return;}
+      // Replace with real endpoint or mailto link integration in production
+      alert('Thanks, ' + name + '! Your message was sent (demo).');
+      e.target.reset();
+    }
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Optional font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="header-inner container">
+      <a href="#" class="brand">
+        <div class="logo">M</div> My Portfolio
+      </a>
+      <nav class="nav">
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="btn">Hire Me</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero container">
+      <div class="hero-content">
+        <h1>Hello, I’m Mayur 👋</h1>
+        <p class="lead">A passionate developer creating clean & modern websites.</p>
+        <a href="#portfolio" class="btn">View Work</a>
+      </div>
+      <div class="profile-card">
+        <div class="avatar">M</div>
+        <div>
+          <h3>Mayur Khobragade</h3>
+          <p>Web Developer</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section container">
+      <div class="section-title">
+        <h2>About Me</h2>
+      </div>
+      <p class="lead">
+        I’m a developer with a strong focus on building responsive, user-friendly, and visually appealing websites.
+      </p>
+    </section>
+
+    <section id="portfolio" class="section container">
+      <div class="section-title">
+        <h2>Portfolio</h2>
+      </div>
+      <div class="grid">
+        <div class="project">
+          <img src="project1.jpg" alt="Project 1" class="project-img">
+          <h3>Project One</h3>
+          <p>A modern landing page built with HTML, CSS, and JS.</p>
+        </div>
+        <div class="project">
+          <img src="project2.jpg" alt="Project 2" class="project-img">
+          <h3>Project Two</h3>
+          <p>Portfolio website with responsive design and clean UI.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <div class="section-title">
+        <h2>Contact</h2>
+      </div>
+      <form class="form">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="input" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="input" placeholder="Your email">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Write your message"></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <p>© 2025 Mayur H. Khobragade. All rights reserved.</p>
+  </footer>
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Go to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
